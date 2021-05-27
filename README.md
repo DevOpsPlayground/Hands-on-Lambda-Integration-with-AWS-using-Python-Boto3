@@ -85,7 +85,7 @@ Look for the confirmation. You can check the S3 details to make sure it is enabl
 - Copy the code below into **lambda_function.py**:
 
 **Version 1**
-```
+```python
 import json
 import csv
 import boto3
@@ -142,7 +142,7 @@ def lambda_handler(event, context):
 - Navigate back to your Lambda Function and copy this code into lambda_function.py
 
 **Version 2**
-```
+```python
 import json
 import csv
 import boto3
@@ -214,7 +214,7 @@ def lambda_handler(event, context):
 - Click on lambda_function.py and paste the code below in this file. 
 
 **Version 3**
-```
+```python
 import json
 import csv
 import boto3
