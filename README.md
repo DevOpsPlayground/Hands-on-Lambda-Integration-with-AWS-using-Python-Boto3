@@ -22,8 +22,8 @@ During this playground you will:
     
     As you can see, the bucket is empty
 
-2. **_Give Permissions-Role
-IAM roles needs lambda s3 permission and dynamnodb and cloudwatch logs_**
+2. **Create IAM role for Lambda
+IAM role needs lambda, s3, dynamnodb and cloudwatch logs permissions**
 
     - Navigate to **IAM** (Global region)
     - Click on **Roles** in left hand side
@@ -31,11 +31,11 @@ IAM roles needs lambda s3 permission and dynamnodb and cloudwatch logs_**
     - Click **Lambda** Under _Use Cases_
     - Next Permissions
     - In the search Bar type in _S3_
-        - Select **Amazon S3 Full Access**
+        - Select **playground-s3**
     - In the search bar type in _Dynamo_
-        - Select **DynamoDBFullAccess**
+        - Select **playground-dynamodb**
     - In the search bar type in _CloudWatch_
-        - Select **AWSOpsWorksCloudWatchLogs**
+        - Select **playground-cloudwatch**
     - Next **Tags**. This is good practice! Add tags
         - Name: < your name >
     - Name Role - "playground-role-*-panda"
@@ -78,7 +78,7 @@ Look for the confirmation. You can check the s3 details to make sure it is enabl
 4. _**Code to connect the Lambda function to the S3 bucket + testing our code**_
 
 - Copy the code below into **lambda_function.py**:
-```
+```python
 import json
 import csv
 import boto3
@@ -114,8 +114,8 @@ def lambda_handler(event, context):
     - Test again
 
 5. Triggering the Lambda with a S3 upload.
-- First let's code some code to read through the rows and print the items out so we can see it in the logs.
-```
+- First let's add some code to read through the rows and print the items out so we can see it in the logs.
+```python
 import json
 import csv
 import boto3
@@ -158,19 +158,20 @@ def lambda_handler(event, context):
 - Nagivate to S3 and upload your file to the S3 bucket.
 - Test
 - Check the logs to make sure it works! You should see the contents of the file in the output. 
+To see logs navigate to **Cloudwatch** -> **Log groups** -> **/aws/lambda/playground-*-panda** / replace * with your adjective.
 
 6. Create the DynamoDB Table
     - Navigate to DynamoDB in a new tab. Important! Make sure you are in the same region as your Lambda Function.
     - Click **Create table**.
     - Enter "playground-db-*-panda" for the **Table name**. (example: "playground-db-silly-panda")
-    - Enter < actorid > for the **Partition key** and select < Number > for the key type. 
+    - Enter `movie_id` for the **Partition key** and select `Number` for the key type. 
     - Add tags because it's good practice! name: jillian, purpose: playground
     - Leave the **Use default settings** box checked and choose **Create**.
     - Click on the tabs on top just to check there are no items. After we upload, the items will appear here
 
 7. Add code to connect the DynamoDB to the Lambda Function
 
-```
+```python
 import json
 import csv
 import boto3
